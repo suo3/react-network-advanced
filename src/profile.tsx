@@ -1,12 +1,6 @@
 import React from "react";
 import { get } from "./utils";
 
-type User = {
-  id: string;
-  name: string;
-  bio: string;
-  interests: string[];
-};
 const Profile = ({ id }: { id: string }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | undefined>();
