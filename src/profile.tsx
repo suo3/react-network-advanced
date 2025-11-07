@@ -4,19 +4,37 @@ import { get } from "./utils";
 type User = {
   id: string;
   name: string;
+  bio: string;
+  interests: string[];
 };
 const Profile = ({ id }: { id: string }) => {
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<Error | undefined>();
   const [user, setUser] = React.useState<User | undefined>();
 
   React.useEffect(() => {
     const fetchUser = async () => {
-      const data = await get<User>(`/users/${id}`);
-      setUser(data);
+      try {
+        setLoading(true);
+        const data = await get<User>(`/users/${id}`);
+        setUser(data);
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchUser();
   }, [id]);
 
-  return <div>{user && user.name}</div>;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Something went wrong...</div>;
+  }
+  return <div>{user?.name}</div>;
 };
 
 export default Profile;
