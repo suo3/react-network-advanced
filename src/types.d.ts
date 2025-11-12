@@ -5,3 +5,9 @@ type User = {
   bio: string;
   interests: string[];
 };
+
+type Feed = {
+  id: string;
+  title: string;
+  description: string;
+};
