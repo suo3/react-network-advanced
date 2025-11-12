@@ -1,24 +1,30 @@
 import React from "react";
 import { get } from "./utils";
+import Friends from "./friends";
 
 const Profile = ({ id }: { id: string }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | undefined>();
   const [user, setUser] = React.useState<User | undefined>();
+  const [friends, setFriends] = React.useState<User[]>([]);
 
   React.useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUserAndFriends = async () => {
       try {
         setLoading(true);
-        const data = await get<User>(`/users/${id}`);
-        setUser(data);
+        const [user, friends] = await Promise.all([
+          get<User>(`/users/${id}`),
+          get<User[]>(`/users/${id}/friends`),
+        ]);
+        setUser(user);
+        setFriends(friends);
       } catch (error) {
         setError(error as Error);
       } finally {
         setLoading(false);
       }
     };
-    fetchUser();
+    fetchUserAndFriends();
   }, [id]);
 
   if (loading) {
@@ -28,7 +34,12 @@ const Profile = ({ id }: { id: string }) => {
   if (error) {
     return <div>Something went wrong...</div>;
   }
-  return <div>{user?.name}</div>;
+  return (
+    <>
+      <div>{user?.name}</div>
+      <Friends users={friends} />
+    </>
+  );
 };
 
 export default Profile;

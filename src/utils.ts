@@ -1,4 +1,4 @@
-const baseUrl = "http://locathost:1573";
+const baseUrl = "http://127.0.0.1:1573";
 
 async function get<T>(url: string): Promise<T> {
   try {
