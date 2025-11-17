@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const Friends = ({ users }: { users: User[] }) => {
   return (
     <div>

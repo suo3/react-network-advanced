@@ -1,6 +1,8 @@
 import React from "react";
 import { get } from "./utils";
 import Friends from "./friends";
+import Feeds from "./feeds";
+import About from "./about";
 
 const Profile = ({ id }: { id: string }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -36,8 +38,9 @@ const Profile = ({ id }: { id: string }) => {
   }
   return (
     <>
-      <div>{user?.name}</div>
+      {user && <About user={user} />}
       <Friends users={friends} />
+      {user && <Feeds category={user.interests[0]} />}
     </>
   );
 };
