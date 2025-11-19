@@ -11,3 +11,11 @@ type Feed = {
   title: string;
   description: string;
 };
+
+type UserDetail = {
+  id: string;
+  name: string;
+  bio: string;
+  twitter: string;
+  homepage: string;
+};

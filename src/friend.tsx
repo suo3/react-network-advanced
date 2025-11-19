@@ -5,17 +5,20 @@ import {
   PopoverTrigger,
   Button,
 } from "@nextui-org/react";
-//import { Brief } from "./brief.tsx";
-//import UserDetailCard from "./user-detail-card.tsx";
+import Brief from "./brief";
+//import UserDetailCard from "./UserDetailCard"
 
-const Friend = () => {
+const Friend = ({ user }: { user: User }) => {
   return (
-    <Popover placement="right">
+    <Popover placement="bottom" showArrow offset={10}>
       <PopoverTrigger>
-        <Button>Open Popover</Button>
+        <Button>
+          Open Popover
+          <Brief user={user} />
+        </Button>
       </PopoverTrigger>
       <PopoverContent>
-        <div>Popover Content</div>
+        {/*  <UserDetailCard id={user.id} /> */}
         <div>This is the popover content</div>
       </PopoverContent>
     </Popover>
