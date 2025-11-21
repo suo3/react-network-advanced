@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   Popover,
   PopoverContent,
@@ -6,7 +6,8 @@ import {
   Button,
 } from "@nextui-org/react";
 import Brief from "./brief";
-//import UserDetailCard from "./UserDetailCard"
+
+const UserDetailCard = React.lazy(() => import("./userDetailCard"));
 
 const Friend = ({ user }: { user: User }) => {
   return (
@@ -18,8 +19,9 @@ const Friend = ({ user }: { user: User }) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent>
-        {/*  <UserDetailCard id={user.id} /> */}
-        <div>This is the popover content</div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <UserDetailCard id={user.id} />
+        </Suspense>
       </PopoverContent>
     </Popover>
   );

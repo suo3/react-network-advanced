@@ -1,5 +1,5 @@
 import React from "react";
-
+import Friend from "./friend";
 
 const Friends = ({ users }: { users: User[] }) => {
   return (
@@ -7,13 +7,7 @@ const Friends = ({ users }: { users: User[] }) => {
       <h2>Friends</h2>
       <div>
         {users.map((user) => (
-          <div key={user.id}>
-            <img
-              src={`https://i.pravatar.cc/150?u=${user.id}`}
-              alt={`User ${user.id} avatar`}
-            />
-            <span>{user.name}</span>
-          </div>
+          <Friend key={user.id} user={user} />
         ))}
       </div>
     </div>
